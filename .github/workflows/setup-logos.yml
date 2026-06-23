@@ -12,20 +12,21 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4   # ✅ updated
 
       - name: Create logos folder
         run: mkdir -p src/assets/logos
 
       - name: Download logos
         run: |
-          curl -L https://logo.clearbit.com/amazon.com -o src/assets/logos/amazon.png
-          curl -L https://logo.clearbit.com/billa.at -o src/assets/logos/billa.png
-          curl -L https://logo.clearbit.com/spar.at -o src/assets/logos/spar.png
-          curl -L https://logo.clearbit.com/lidl.at -o src/assets/logos/lidl.png
-          curl -L https://logo.clearbit.com/mcdonalds.com -o src/assets/logos/mcdonalds.png
-          curl -L https://logo.clearbit.com/fitinn.at -o src/assets/logos/fitinn.png
-          curl -L https://logo.clearbit.com/cineplexx.at -o src/assets/logos/cineplexx.png
+          set -e
+          curl -fL https://logo.clearbit.com/amazon.com -o src/assets/logos/amazon.png
+          curl -fL https://logo.clearbit.com/billa.at -o src/assets/logos/billa.png
+          curl -fL https://logo.clearbit.com/spar.at -o src/assets/logos/spar.png
+          curl -fL https://logo.clearbit.com/lidl.at -o src/assets/logos/lidl.png
+          curl -fL https://logo.clearbit.com/mcdonalds.com -o src/assets/logos/mcdonalds.png
+          curl -fL https://logo.clearbit.com/fitinn.at -o src/assets/logos/fitinn.png
+          curl -fL https://logo.clearbit.com/cineplexx.at -o src/assets/logos/cineplexx.png
 
       - name: Commit and push
         run: |
@@ -33,4 +34,4 @@ jobs:
           git config user.email "actions@github.com"
           git add src/assets/logos
           git commit -m "add logos automatically" || echo "no changes"
-          git push
+          git push origin HEAD:main
