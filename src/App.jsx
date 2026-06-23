@@ -1,53 +1,120 @@
-import React, { useState } from 'react'
-import iPhone17Frame from './components/iPhone17Frame'
-import HomeScreen from './screens/HomeScreen'
-import CardsScreen from './screens/CardsScreen'
-import AddCardScreen from './screens/AddCardScreen'
-import LocationScreen from './screens/LocationScreen'
-import SecurityScreen from './screens/SecurityScreen'
-import GoldenCircleScreen from './screens/GoldenCircleScreen'
 
-const screens = [
-  { id: 'home', name: 'Home', component: HomeScreen },
-  { id: 'cards', name: 'Meine Karten', component: CardsScreen },
-  { id: 'add', name: 'Karte hinzufügen', component: AddCardScreen },
-  { id: 'location', name: 'In deiner Nähe', component: LocationScreen },
-  { id: 'security', name: 'Sicherheit', component: SecurityScreen },
-  { id: 'golden', name: 'Golden Circle', component: GoldenCircleScreen },
-]
-
+// === App.jsx ===
 export default function App() {
-  const [currentScreen, setCurrentScreen] = useState('home')
-
-  const CurrentComponent = screens.find(s => s.id === currentScreen)?.component || HomeScreen
-
   return (
-    <div className="min-h-screen w-screen bg-gradient-to-br from-gray-100 via-white to-gray-50 flex items-center justify-center overflow-hidden p-4">
-      <div className="relative">
-        {/* iPhone 17 Device */}
-        <iPhone17Frame>
-          <CurrentComponent onNavigate={setCurrentScreen} />
-        </iPhone17Frame>
+    <div className="min-h-screen bg-neutral-900 flex items-center justify-center">
+      <IPhoneFrame>
+        <HomeScreen />
+      </IPhoneFrame>
+    </div>
+  );
+}
 
-        {/* Bottom Navigation Overlay */}
-        <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 z-50 mb-8">
-          <div className="flex gap-2 bg-black/70 backdrop-blur-xl rounded-full px-5 py-3 border border-white/20 shadow-2xl">
-            {screens.map((screen, idx) => (
-              <button
-                key={screen.id}
-                onClick={() => setCurrentScreen(screen.id)}
-                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
-                  currentScreen === screen.id
-                    ? 'bg-white text-black shadow-lg scale-105'
-                    : 'text-white/70 hover:text-white hover:bg-white/10'
-                }`}
-              >
-                {screen.name.split(' ')[0]}
-              </button>
-            ))}
-          </div>
-        </div>
+// === iPhone Frame ===
+function IPhoneFrame({ children }) {
+  return (
+    <div className="relative w-[320px] h-[680px] bg-black rounded-[45px] shadow-2xl border border-neutral-700 overflow-hidden">
+      {/* Glass overlay */}
+      <div className="absolute inset-0 bg-white/5 backdrop-blur-xl pointer-events-none" />
+
+      {/* Notch */}
+      <div className="absolute top-2 left-1/2 -translate-x-1/2 w-32 h-6 bg-black rounded-full z-10" />
+
+      {/* Content */}
+      <div className="w-full h-full overflow-hidden">
+        {children}
       </div>
     </div>
-  )
+  );
+}
+
+// === Home Screen ===
+import { useState } from "react";
+import { CreditCard, Home, User } from "lucide-react";
+
+function HomeScreen() {
+  const [tab, setTab] = useState("home");
+
+  return (
+    <div className="h-full flex flex-col bg-gradient-to-b from-neutral-900 to-neutral-800 text-white">
+      {/* Header */}
+      <div className="p-4 text-xl font-semibold">Tascherl</div>
+
+      {/* Content */}
+      <div className="flex-1 px-4 overflow-y-auto">
+        {tab === "home" && <Dashboard />}
+        {tab === "cards" && <CardsScreen />}
+        {tab === "profile" && <Profile />}
+      </div>
+
+      {/* Internal Tab Bar (Liquid Glass) */}
+      <div className="m-4 p-2 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-lg flex justify-around">
+        <TabButton icon={<Home />} active={tab === "home"} onClick={() => setTab("home")} />
+        <TabButton icon={<CreditCard />} active={tab === "cards"} onClick={() => setTab("cards")} />
+        <TabButton icon={<User />} active={tab === "profile"} onClick={() => setTab("profile")} />
+      </div>
+    </div>
+  );
+}
+
+function TabButton({ icon, active, onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`p-3 rounded-xl transition ${
+        active ? "bg-white/20 scale-110" : "opacity-70"
+      }`}
+    >
+      {icon}
+    </button>
+  );
+}
+
+// === Dashboard ===
+function Dashboard() {
+  return (
+    <div className="space-y-4">
+      <GlassCard title="Balance" value="€2,430" />
+      <GlassCard title="Expenses" value="€740" />
+    </div>
+  );
+}
+
+// === Cards Screen ===
+function CardsScreen() {
+  return (
+    <div className="space-y-4">
+      <CreditCardItem name="Visa" number="**** 1234" />
+      <CreditCardItem name="Mastercard" number="**** 5678" />
+    </div>
+  );
+}
+
+function CreditCardItem({ name, number }) {
+  return (
+    <div className="p-4 rounded-2xl bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-xl border border-white/20 shadow-lg">
+      <div className="text-lg font-medium">{name}</div>
+      <div className="text-sm opacity-70">{number}</div>
+    </div>
+  );
+}
+
+// === Profile ===
+function Profile() {
+  return (
+    <div className="space-y-4">
+      <GlassCard title="User" value="Roman" />
+      <GlassCard title="Plan" value="Premium" />
+    </div>
+  );
+}
+
+// === Reusable Glass Card ===
+function GlassCard({ title, value }) {
+  return (
+    <div className="p-4 rounded-2xl bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-xl border border-white/20 shadow-lg">
+      <div className="text-sm opacity-70">{title}</div>
+      <div className="text-xl font-semibold">{value}</div>
+    </div>
+  );
 }
