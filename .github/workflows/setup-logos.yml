@@ -17,20 +17,18 @@ jobs:
       - name: Create logos folder
         run: mkdir -p src/assets/logos
 
-      - name: Download logos (stable CDN)
+      - name: Download logos
         run: |
           curl -L https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg -o src/assets/logos/amazon.svg
           curl -L https://upload.wikimedia.org/wikipedia/commons/2/2e/Billa_Logo.png -o src/assets/logos/billa.png
           curl -L https://upload.wikimedia.org/wikipedia/commons/7/7e/Spar-logo.png -o src/assets/logos/spar.png
           curl -L https://upload.wikimedia.org/wikipedia/commons/0/0e/Lidl_logo.svg -o src/assets/logos/lidl.svg
-          curl -L https://upload.wikimedia.org/wikipedia/commons/4/4e/McDonald%27s_logo.svg -o src/assets/logos/mcdonalds.svg
-          curl -L https://upload.wikimedia.org/wikipedia/commons/6/6a/Fitinn_logo.png -o src/assets/logos/fitinn.png
+          curl -L https://upload.wikimedia.org/wikipedia/commons/4/4e/McDonalds_logo.svg -o src/assets/logos/mcdonalds.svg
 
-      - name: Commit and push
+      - name: Commit logos
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add src/assets/logos
-          git commit -m "add logos (stable source)" || echo "no changes"
+          git commit -m "add logos" || echo "no changes"
           git push origin HEAD:main
-``
