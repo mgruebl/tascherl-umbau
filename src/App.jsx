@@ -11,13 +11,16 @@ import billaLogo from "./assets/logos/billa.png";
 import sparLogo from "./assets/logos/spar.png";
 import lidlLogo from "./assets/logos/lidl.svg";
 import mcdonaldsLogo from "./assets/logos/mcdonalds.svg";
-``
+import fitinnLogo from "./assets/logos/fitinn.png";
+import cineplexxLogo from "./assets/logos/cineplexx.png"; // falls vorhanden
 const LOGOS = {
   amazon: amazonLogo,
   billa: billaLogo,
   spar: sparLogo,
   lidl: lidlLogo,
   mcdonalds: mcdonaldsLogo,
+  fitinn: fitinnLogo,
+  cineplexx: cineplexxLogo,
 };
 ''
 import { useEffect, useMemo, useState } from "react";
@@ -52,9 +55,9 @@ const initialCards = [
     type: "QR",
     category: "Shopping",
     color: "from-slate-400 to-black",
-    info: "Online Shop Account",
+    info: "Online Account",
     code: "AMZ-22341",
-    locationHint: "Online verwendbar",
+    locationHint: "Online verwenden",
     favorite: true,
   },
   {
@@ -65,9 +68,9 @@ const initialCards = [
     type: "Barcode",
     category: "Supermarkt",
     color: "from-yellow-300 to-red-500",
-    info: "JÖ Bonus Punkte",
+    info: "Bonus Punkte",
     code: "BIL-99821",
-    locationHint: "Wird automatisch im Store vorgeschlagen",
+    locationHint: "Im Store zeigen",
     favorite: true,
   },
   {
@@ -78,9 +81,9 @@ const initialCards = [
     type: "QR",
     category: "Food",
     color: "from-yellow-400 to-red-600",
-    info: "Rewards & Gutscheine",
+    info: "Rewards",
     code: "MCD-88221",
-    locationHint: "Beim Bestellen anzeigen",
+    locationHint: "Beim Bestellen zeigen",
     favorite: false,
   },
 ];
@@ -469,17 +472,13 @@ function WalletCard({ card, index, onClick }) {
 }
 
 function CompanyLogo({ brand, company }) {
-  const key = normalizeBrand(brand || company);
+  const key = (brand || company).toLowerCase().replace(/\s/g, "");
   const logo = LOGOS[key];
 
   if (logo) {
     return (
       <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center overflow-hidden shadow">
-        <img
-          src={logo}
-          alt={company}
-          className="w-full h-full object-contain p-2"
-        />
+        <img src={logo} alt={company} className="w-full h-full object-contain p-2" />
       </div>
     );
   }
@@ -490,6 +489,7 @@ function CompanyLogo({ brand, company }) {
     </div>
   );
 }
+
 
 
 function CardTypeBadge({ type }) {
