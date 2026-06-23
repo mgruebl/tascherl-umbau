@@ -9,8 +9,8 @@ function normalizeBrand(name) {
 import amazonLogo from "./assets/logos/amazon.svg";
 import billaLogo from "./assets/logos/billa.png";
 import sparLogo from "./assets/logos/spar.png";
-import lidlLogo from "./assets/logos/lidl.svg";
-import mcdonaldsLogo from "./assets/logos/mcdonalds.svg";
+import lidlLogo from "./assets/logos/lidl.png";
+import mcdonaldsLogo from "./assets/logos/mcdonalds.png";
 
 const LOGOS = {
   amazon: amazonLogo,
