@@ -13,10 +13,11 @@ html, body, #root {
   margin: 0;
   padding: 0;
   background: white;
+  overflow: hidden;
 }
 
 body {
-  background: white;
+  background: linear-gradient(135deg, #f3f4f6 0%, #ffffff 50%, #f9fafb 100%);
   overflow: hidden;
 }
 

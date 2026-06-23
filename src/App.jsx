@@ -22,26 +22,24 @@ export default function App() {
   const CurrentComponent = screens.find(s => s.id === currentScreen)?.component || HomeScreen
 
   return (
-    <div className="min-h-screen w-screen bg-white flex items-center justify-center overflow-hidden">
-      <div className="relative w-full h-screen flex items-center justify-center">
-        {/* iPhone 17 */}
+    <div className="min-h-screen w-screen bg-gradient-to-br from-gray-100 via-white to-gray-50 flex items-center justify-center overflow-hidden p-4">
+      <div className="relative">
+        {/* iPhone 17 Device */}
         <iPhone17Frame>
           <CurrentComponent onNavigate={setCurrentScreen} />
         </iPhone17Frame>
 
         {/* Bottom Navigation Overlay */}
-        <div className="fixed bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none" />
-        
-        <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50">
-          <div className="flex gap-2 bg-black/80 backdrop-blur-3xl rounded-full px-4 py-3 border border-white/30">
-            {screens.map(screen => (
+        <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 z-50 mb-8">
+          <div className="flex gap-2 bg-black/70 backdrop-blur-xl rounded-full px-5 py-3 border border-white/20 shadow-2xl">
+            {screens.map((screen, idx) => (
               <button
                 key={screen.id}
                 onClick={() => setCurrentScreen(screen.id)}
-                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
                   currentScreen === screen.id
-                    ? 'bg-white/30 text-white'
-                    : 'text-white/60 hover:text-white'
+                    ? 'bg-white text-black shadow-lg scale-105'
+                    : 'text-white/70 hover:text-white hover:bg-white/10'
                 }`}
               >
                 {screen.name.split(' ')[0]}
