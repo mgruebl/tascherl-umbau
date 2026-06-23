@@ -42,7 +42,6 @@ const STORAGE_KEYS = {
   cards: "tascherl_cards",
   settings: "tascherl_settings",
 };
-
 const initialCards = [
   {
     id: 1,
@@ -82,6 +81,19 @@ const initialCards = [
     code: "MCD-88221",
     locationHint: "Beim Bestellen zeigen",
     favorite: false,
+  },
+  {
+    id: 4,
+    name: "Lidl Karte",
+    company: "Lidl",
+    brand: "lidl",
+    type: "NFC", // 👈 WICHTIG
+    category: "Supermarkt",
+    color: "from-blue-400 to-yellow-400",
+    info: "Einfach mit NFC zahlen",
+    code: "LIDL-7721",
+    locationHint: "Am Terminal halten",
+    favorite: true,
   },
 ];
 
