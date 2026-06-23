@@ -1,25 +1,18 @@
+import amazonLogo from "./assets/logos/amazon.svg";
+import billaLogo from "./assets/logos/billa.png";
+import sparLogo from "./assets/logos/spar.png";
+import lidlLogo from "./assets/logos/lidl.svg";
+import mcdonaldsLogo from "./assets/logos/mcdonalds.svg";
+import fitinnLogo from "./assets/logos/fitinn.png";
+import cineplexxLogo from "./assets/logos/cineplexx.png"; // falls vorhanden
 const LOGOS = {
-  fitinn: "https://logo.clearbit.com/fitinn.at",
-  joe: "https://logo.clearbit.com/joebonusclub.at",
-  cineplexx: "https://logo.clearbit.com/cineplexx.at",
-  billa: "https://logo.clearbit.com/billa.at",
-  spar: "https://logo.clearbit.com/spar.at",
-  lidl: "https://logo.clearbit.com/lidl.at",
-  hofer: "https://logo.clearbit.com/hofer.at",
-  dm: "https://logo.clearbit.com/dm.at",
-  mcdonalds: "https://logo.clearbit.com/mcdonalds.com",
-  burgerking: "https://logo.clearbit.com/burgerking.at",
-  starbucks: "https://logo.clearbit.com/starbucks.at",
-  ikea: "https://logo.clearbit.com/ikea.com",
-  amazon: "https://logo.clearbit.com/amazon.com",
-  netflix: "https://logo.clearbit.com/netflix.com",
-  spotify: "https://logo.clearbit.com/spotify.com",
-  adidas: "https://logo.clearbit.com/adidas.com",
-  nike: "https://logo.clearbit.com/nike.com",
-  zalando: "https://logo.clearbit.com/zalando.at",
-  paypal: "https://logo.clearbit.com/paypal.com",
-  google: "https://logo.clearbit.com/google.com",
-  apple: "https://logo.clearbit.com/apple.com",
+  amazon: amazonLogo,
+  billa: billaLogo,
+  spar: sparLogo,
+  lidl: lidlLogo,
+  mcdonalds: mcdonaldsLogo,
+  fitinn: fitinnLogo,
+  cineplexx: cineplexxLogo,
 };
 ''
 import { useEffect, useMemo, useState } from "react";
@@ -476,15 +469,7 @@ function CompanyLogo({ brand, company }) {
   if (logo) {
     return (
       <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center overflow-hidden shadow">
-        <img
-          src={logo}
-          alt={company}
-          className="w-full h-full object-contain p-2"
-          loading="lazy"
-          onError={(e) => {
-            e.target.style.display = "none";
-          }}
-        />
+        {logo}
       </div>
     );
   }
