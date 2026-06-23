@@ -1,3 +1,11 @@
+function normalizeBrand(name) {
+  return name
+    .toLowerCase()
+    .replace(/\s/g, "")
+    .replace(/[öäüß]/g, (c) => {
+      return { ö: "oe", ä: "ae", ü: "ue", ß: "ss" }[c] || c;
+    });
+}
 import amazonLogo from "./assets/logos/amazon.svg";
 import billaLogo from "./assets/logos/billa.png";
 import sparLogo from "./assets/logos/spar.png";
@@ -41,41 +49,41 @@ const STORAGE_KEYS = {
 const initialCards = [
   {
     id: 1,
-    name: "Fitinn Gym",
-    company: "FITINN",
-    brand: "fitinn",
-    type: "NFC",
-    category: "Fitness",
-    color: "from-lime-400 via-green-500 to-emerald-700",
-    info: "Mitgliedskarte · Zugang zum Gym",
-    code: "FITINN-AT-2024-8841",
-    locationHint: "Aktiviert sich automatisch in der Nähe deines Studios.",
+    name: "Amazon",
+    company: "Amazon",
+    brand: "amazon",
+    type: "QR",
+    category: "Shopping",
+    color: "from-slate-400 to-black",
+    info: "Online Shop Account",
+    code: "AMZ-22341",
+    locationHint: "Online verwendbar",
     favorite: true,
   },
   {
     id: 2,
-    name: "JÖ Karte",
-    company: "jö Bonus Club",
-    brand: "joe",
-    type: "QR",
-    category: "Bonuskarte",
-    color: "from-rose-400 via-red-500 to-pink-700",
-    info: "1240 Ös gesammelt",
-    code: "JOE-4459-8820-AT",
-    locationHint: "Wird bei BILLA, BIPA, OMV & Partnern vorgeschlagen.",
+    name: "BILLA Karte",
+    company: "BILLA",
+    brand: "billa",
+    type: "Barcode",
+    category: "Supermarkt",
+    color: "from-yellow-300 to-red-500",
+    info: "JÖ Bonus Punkte",
+    code: "BIL-99821",
+    locationHint: "Wird automatisch im Store vorgeschlagen",
     favorite: true,
   },
   {
     id: 3,
-    name: "Cineplexx Bonus",
-    company: "Cineplexx",
-    brand: "cineplexx",
-    type: "Barcode",
-    category: "Entertainment",
-    color: "from-sky-400 via-blue-500 to-indigo-700",
-    info: "Movie Bonus Card",
-    code: "CPX-9922-1048",
-    locationHint: "Bereit beim Kinoeingang oder an der Kassa.",
+    name: "McDonalds",
+    company: "McDonalds",
+    brand: "mcdonalds",
+    type: "QR",
+    category: "Food",
+    color: "from-yellow-400 to-red-600",
+    info: "Rewards & Gutscheine",
+    code: "MCD-88221",
+    locationHint: "Beim Bestellen anzeigen",
     favorite: false,
   },
 ];
@@ -464,12 +472,17 @@ function WalletCard({ card, index, onClick }) {
 }
 
 function CompanyLogo({ brand, company }) {
-  const logo = LOGOS[brand];
+  const key = normalizeBrand(brand || company);
+  const logo = LOGOS[key];
 
   if (logo) {
     return (
       <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center overflow-hidden shadow">
-        {logo}
+        <img
+          src={logo}
+          alt={company}
+          className="w-full h-full object-contain p-2"
+        />
       </div>
     );
   }
@@ -818,7 +831,7 @@ function AddCardModal({ onClose, onAdd }) {
       id: Date.now(),
       name,
       company,
-      brand: company.toLowerCase().replace(/\s/g, ""),
+      brand: normalizeBrand(company),
       type,
       category:
         type === "NFC"
