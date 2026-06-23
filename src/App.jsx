@@ -18,8 +18,6 @@ const LOGOS = {
   spar: sparLogo,
   lidl: lidlLogo,
   mcdonalds: mcdonaldsLogo,
-  fitinn: fitinnLogo,
-  cineplexx: cineplexxLogo,
 };
 ''
 import { useEffect, useMemo, useState } from "react";
