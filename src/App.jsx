@@ -14,10 +14,10 @@ import mcdonaldsLogo from "./assets/logos/mcdonalds.svg";
 
 const LOGOS = {
   amazon: amazonLogo,
-  billa: billaLogo,
   spar: sparLogo,
   lidl: lidlLogo,
   mcdonalds: mcdonaldsLogo,
+  billa: billaLogo,
 };
 ''
 import { useEffect, useMemo, useState } from "react";
@@ -475,7 +475,7 @@ function CompanyLogo({ brand, company }) {
   if (logo) {
     return (
       <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center overflow-hidden shadow">
-        <img src={logo} alt={company} className="w-full h-full object-contain p-2" />
+        <img src={logo} alt={company} className="w-full h-full object-contain p-2"/>
       </div>
     );
   }
@@ -486,6 +486,7 @@ function CompanyLogo({ brand, company }) {
     </div>
   );
 }
+
 
 
 
