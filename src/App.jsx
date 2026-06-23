@@ -275,13 +275,16 @@ function TascherlApp() {
     : "bg-gradient-to-b from-slate-100 via-white to-slate-200 text-slate-950";
 
   if (locked) {
-    return (
-      <LockScreen
-        onUnlock={() => setLocked(false)}
-        darkMode={settings.darkMode}
-      />
-    );
-  }
+  return (
+    <LockScreen
+      onUnlock={() => {
+        setLocked(false);
+        setSelectedCard(cards[0]); // ✅ AUTO OPEN wie Widget
+      }}
+      darkMode={settings.darkMode}
+    />
+  );
+}
 
   return (
     <div className={`h-full flex flex-col ${themeClass}`}>
@@ -476,7 +479,7 @@ function CompanyLogo({ brand, company }) {
         <img
           src={logo}
           alt={company}
-          className="max-w-full max-h-full object-contain"
+          className="w-full h-full object-contain"
         />
       </div>
     );
@@ -488,7 +491,6 @@ function CompanyLogo({ brand, company }) {
     </div>
   );
 }
-``
 
 function CardTypeBadge({ type }) {
   const icon =
@@ -544,8 +546,8 @@ function SmartSuggestion({ card, onOpen, onClose }) {
 
 function CardDetailModal({ card, onClose, settings }) {
   return (
-    <div className="absolute inset-0 z-50 bg-black/65 backdrop-blur-md flex items-end justify-center">
-      <div className="w-full p-4 animate-floatIn">
+    <div className="fixed inset-0 z-50 bg-black/65 backdrop-blur-md flex items-center justify-center">
+      <div className="w-full max-w-[360px] p-2">
         <div
           className={`rounded-[34px] overflow-hidden bg-gradient-to-br ${card.color} shadow-2xl`}
         >
@@ -826,7 +828,7 @@ function AddCardModal({ onClose, onAdd }) {
       id: Date.now(),
       name,
       company,
-      brand: "custom",
+      brand: company.toLowerCase().replace(/\s/g, ""),
       type,
       category:
         type === "NFC"
@@ -1051,37 +1053,7 @@ function StatusPill({ label }) {
   );
 }
 
-/* ---------------- LOCK SCREEN ---------------- */
 
-function LockScreen({ onUnlock, darkMode }) {
-  return (
-    <div
-      className={`h-full flex flex-col items-center justify-center px-8 ${
-        darkMode
-          ? "bg-gradient-to-b from-neutral-950 to-black text-white"
-          : "bg-white text-black"
-      }`}
-    >
-      <div className="w-24 h-24 rounded-[30px] bg-gradient-to-br from-purple-400 via-pink-500 to-orange-400 flex items-center justify-center shadow-2xl shadow-pink-500/25 animate-softPulse">
-        <Lock size={38} className="text-white" />
-      </div>
-
-      <h2 className="text-2xl font-black mt-6">Tascherl ist gesperrt</h2>
-
-      <p className="text-center text-sm opacity-55 mt-2">
-        Demo für Face ID / App-Sperre. Tippe zum Entsperren.
-      </p>
-
-      <button
-        onClick={onUnlock}
-        className="mt-8 px-5 py-3 rounded-2xl bg-white text-black font-bold active:scale-95 transition flex items-center gap-2"
-      >
-        <Unlock size={17} />
-        Entsperren
-      </button>
-    </div>
-  );
-}
 
 /* ---------------- BOTTOM NAV ---------------- */
 
