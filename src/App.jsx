@@ -53,7 +53,7 @@ const initialCards = [
     type: "QR",
     category: "Online",
     color: "from-slate-400 to-black",
-    info: "MACH AUF AMAZON",
+    info: "Kundenkarte",
     code: "AMZ-22341",
     locationHint: "Online verwenden",
     favorite: true,
