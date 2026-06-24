@@ -51,7 +51,7 @@ const initialCards = [
     company: "Amazon",
     brand: "amazon",
     type: "QR",
-    category: "Test",
+    category: "TEST2222222",
     color: "from-slate-400 to-black",
     info: "Online Account",
     code: "AMZ-22341",
